@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World App</title>
+
+    <!--
+        CSS Styling Section:
+        - Defines the visual appearance of the page and its elements.
+        - Uses a modern, clean, and centered layout.
+        - Includes responsive design for various screen sizes.
+        - Implements a pleasant color palette and smooth transitions for interactive elements.
+    -->
+    <style>
+        /* Base styling for the entire page */
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; /* Modern, clean system font stack */
+            margin: 0;
+            padding: 20px; /* Add some padding around the edges */
+            background-color: #f0f4f8; /* Pleasant light blue-grey background */
+            color: #333; /* Dark grey for primary text */
+            display: flex;
+            flex-direction: column; /* Stack content vertically */
+            justify-content: center; /* Center content vertically in the viewport */
+            align-items: center; /* Center content horizontally in the viewport */
+            min-height: 100vh; /* Ensure body takes at least the full viewport height */
+            text-align: center; /* Center text within the content block */
+            line-height: 1.6; /* Improved readability for text */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        /* Styling for the main application container (card-like effect) */
+        .app-container {
+            background-color: #ffffff; /* White background for the card */
+            border-radius: 12px; /* Soft rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Subtle shadow for depth */
+            padding: 40px 60px; /* Ample padding inside the container */
+            max-width: 600px; /* Limit maximum width for better readability */
+            width: 90%; /* Responsive width, takes 90% of parent's width */
+            display: flex;
+            flex-direction: column; /* Arrange items vertically */
+            align-items: center; /* Center items within the container horizontally */
+            gap: 30px; /* Space between the greeting text and the button */
+        }
+
+        /* Styling for the main greeting text */
+        #greeting-text {
+            font-size: 3.5em; /* Large, prominent text */
+            font-weight: 700; /* Bold font weight */
+            margin: 0; /* Remove default margin from h1 */
+            color: #2c3e50; /* A slightly darker blue-grey for emphasis */
+            /* Smooth transition for visual changes (opacity, transform, color) */
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out, color 0.4s ease-out;
+        }
+
+        /* Class to apply for the fade-out and scale-down animation effect */
+        #greeting-text.animate-out {
+            opacity: 0; /* Fade out */
+            transform: scale(0.95) translateY(-10px); /* Slightly shrink and move up */
+            color: #aeb6bf; /* Change color during fade-out */
+        }
+
+        /* Styling for the "Click Me" button */
+        #change-text-btn {
+            padding: 15px 30px; /* Vertical and horizontal padding */
+            font-size: 1.1em; /* Slightly larger font size */
+            font-weight: 600; /* Semi-bold font weight */
+            color: #ffffff; /* White text for the button */
+            background-color: #4a90e2; /* Pleasant blue accent color */
+            border: none; /* Remove default button border */
+            border-radius: 8px; /* Soft rounded corners for button */
+            cursor: pointer; /* Indicate clickable element */
+            outline: none; /* Remove outline on focus for aesthetic reasons */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for button depth */
+            /* Smooth transitions for hover effects */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        /* Button hover state: slightly darker background, lift effect */
+        #change-text-btn:hover {
+            background-color: #357ABD; /* Slightly darker blue on hover */
+            transform: translateY(-2px); /* Lift effect on hover */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+        }
+
+        /* Button active state: even darker background, press-down effect */
+        #change-text-btn:active {
+            background-color: #2b6cb0; /* Even darker blue on click */
+            transform: translateY(0); /* Return to original position */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Reduced shadow on active */
+        }
+
+        /*
+            Media Queries for Responsiveness:
+            Adjusts styling for smaller screens (e.g., tablets and mobile phones)
+            to ensure a good user experience on all devices.
+        */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 30px 40px; /* Reduce padding for smaller screens */
+                width: 95%; /* Make container slightly wider */
+            }
+            #greeting-text {
+                font-size: 2.5em; /* Reduce font size for greeting text */
+            }
+            #change-text-btn {
+                font-size: 1em; /* Reduce button font size */
+                padding: 12px 25px; /* Adjust button padding */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 20px 30px; /* Further reduce padding for very small screens */
+            }
+            #greeting-text {
+                font-size: 1.8em; /* Further reduce font size */
+            }
+            #change-text-btn {
+                font-size: 0.9em; /* Smallest button font size */
+                padding: 10px 20px; /* Smallest button padding */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main application content container -->
+    <div class="app-container">
+        <!-- Heading element to display the greeting text -->
+        <h1 id="greeting-text">Hello, World!</h1>
+
+        <!-- Button that, when clicked, will change the greeting text -->
+        <button id="change-text-btn">Click Me</button>
+    </div>
+
+    <!--
+        JavaScript Logic Section:
+        - Handles the interactivity of the page.
+        - Listens for a click event on the button.
+        - Changes the text content of the greeting message with a smooth animation.
+    -->
+    <script>
+        // Ensure the entire HTML document is loaded and parsed before running the script.
+        // This prevents errors from trying to access elements that don't yet exist in the DOM.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get references to the HTML elements by their IDs.
+            const greetingText = document.getElementById('greeting-text');
+            const changeTextBtn = document.getElementById('change-text-btn');
+
+            // Add an event listener to the 'Click Me' button.
+            // When the button is clicked, the provided function will execute.
+            changeTextBtn.addEventListener('click', () => {
+                // Step 1: Trigger the fade-out animation.
+                // By adding the 'animate-out' class, the CSS transition properties
+                // defined for this class will take effect, smoothly fading out the text.
+                greetingText.classList.add('animate-out');
+
+                // Step 2: After the fade-out transition completes, change the text content.
+                // The setTimeout duration should match the CSS transition duration
+                // (0.4s or 400ms in this case) to ensure a smooth visual sequence.
+                setTimeout(() => {
+                    // Update the text content to "Hello, Azeem!".
+                    greetingText.textContent = 'Hello, Azeem!';
+
+                    // Step 3: Remove the 'animate-out' class.
+                    // This allows the text to smoothly transition back to its default
+                    // (visible, unscaled) state according to the initial CSS rules.
+                    greetingText.classList.remove('animate-out');
+                }, 400); // The delay in milliseconds, matching the CSS transition duration.
+            });
+        });
+    </script>
+</body>
+</html>
